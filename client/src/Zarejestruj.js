@@ -13,16 +13,15 @@ function Zarejestruj() {
   const navigate = useNavigate();
   const [nick, setNick] = useState("");
   const [haslo, setHaslo] = useState("");
-  const [kod, setKod] = useState(0);
 
   const RegisterFunction = () => {
     Axios.post('http://localhost:3001/rejestruj', {nick: nick, haslo: haslo}).then((response) => {
       if(response) {
           toast.success(response.data.message)
       }
-  })
-    
+    })  
   }
+
   const sidebarMovement = () => {
     let btn = document.querySelector("#btn");
     let sidebar = document.querySelector(".sidebar");

@@ -21,19 +21,23 @@ const sidebarMovement = () => {
         
     }
 
-    
-    
-
 }
 
 function Informacje() {
     document.title = 'Lista'
     const navigate = useNavigate();
+    const [zadania, setZadania] = useState("");
 
     const [loginStatus, setLoginStatus] = useState("");
     Axios.defaults.withCredentials = true; 
 
-    
+    const AddTaskFunction = () => {
+        Axios.post('http://localhost:3001/task', {nick: loginStatus, zadania: zadania}).then((response) => {
+            if(response) {
+                toast.success(response.data.message)
+            }
+        })
+    }
 
     useEffect(() => {
         Axios.get("http://localhost:3001/todo").then((response) => {
@@ -58,55 +62,66 @@ function Informacje() {
     
     return (
         <div className="container">
-        <div className='sidebar' onClick={sidebarMovement}>
-            <div className='logo_content'>
-                <div className='logo' >
-                    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
-                    <box-icon name='world' color='white' size='lg' pull='left' animation='' border='circle 0px'></box-icon>
-                    <div className='logo_name'>ToDo</div>
+            <div className='sidebar' onClick={sidebarMovement}>
+                <div className='logo_content'>
+                    <div className='logo' >
+                        <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
+                        <box-icon name='world' color='white' size='lg' pull='left' animation='' border='circle 0px'></box-icon>
+                        <div className='logo_name'>ToDo</div>
+                    </div>
+                    <box-icon name='menu' id='btn' animation='' color='white' pull='left' border='circle 0px' size='55px'></box-icon>
                 </div>
-                <box-icon name='menu' id='btn' animation='' color='white' pull='left' border='circle 0px' size='55px'></box-icon>
-            </div>
-            <ul className='nav_list'>
-                <li>
-                    <a href="" onClick={() => {
-                        navigate("/lista");
-                    }}>
-                    <box-icon name='grid-alt' type='solid' color='white' pull='left' border='' size='lg' animation='tada-hover'></box-icon>
-                    <span className='links_name'>Lista</span>
-                    </a>
-                    <span className='tooltip'>To Do Lista</span>
-                </li>
-                <li>
-                    <a href="" onClick={() => {
-                        navigate("/zaloguj");
-                    }}>
-                    <box-icon name='user' color='white' size='xs' pull='left' border='circle 0px' animation='tada-hover'></box-icon>
-                    <span className='links_name'>Konto</span>
-                    </a>
-                    <span className='tooltip'>Konto</span>
-                </li>
-                <li>
-                    <a href="" onClick={() => {
-                        navigate("/zarejestruj");
-                    }}>
-                    <box-icon name='plus' color='white' size='xs' pull='left' border='circle 0px' animation='tada-hover'></box-icon>
-                    <span className='links_name'>Zarejestruj</span>
-                    </a>
-                    <span className='tooltip'>Zarejestruj</span>
-                </li>
-            </ul>
-            <div className='profile_content'>
-                <div className='profile'>
-                    <div className='profile_details'>
+                <ul className='nav_list'>
+                    <li>
+                        <a href="" onClick={() => {
+                            navigate("/lista");
+                        }}>
+                        <box-icon name='grid-alt' type='solid' color='white' pull='left' border='' size='lg' animation='tada-hover'></box-icon>
+                        <span className='links_name'>Lista</span>
+                        </a>
+                        <span className='tooltip'>To Do Lista</span>
+                    </li>
+                    <li>
+                        <a href="" onClick={() => {
+                            navigate("/zaloguj");
+                        }}>
+                        <box-icon name='user' color='white' size='xs' pull='left' border='circle 0px' animation='tada-hover'></box-icon>
+                        <span className='links_name'>Konto</span>
+                        </a>
+                        <span className='tooltip'>Konto</span>
+                    </li>
+                    <li>
+                        <a href="" onClick={() => {
+                            navigate("/zarejestruj");
+                        }}>
+                        <box-icon name='plus' color='white' size='xs' pull='left' border='circle 0px' animation='tada-hover'></box-icon>
+                        <span className='links_name'>Zarejestruj</span>
+                        </a>
+                        <span className='tooltip'>Zarejestruj</span>
+                    </li>
+                </ul>
+                <div className='profile_content'>
+                    <div className='profile'>
+                        <div className='profile_details'>
 
+                        </div>
+                    </div>
+                </div>           
+            </div>
+
+            <div className='main'>
+                <div className='leftmain'>
+                    <h1>Add Todo Task</h1>
+                    <div className='task-inputs'>
+                        <input type="text" id="new-task-text" placeholder="Write your task here!" onChange={(event ) =>{
+                            setZadania(event.target.value);
+                        }}/>
+                        <button id="new-task-submit" onClick={AddTaskFunction}>Add task</button>
                     </div>
                 </div>
-            </div>
-            
-        </div>
-        <div className='main'>
-                <button onClick = {addElements}>test</button>
+                <div className='rightmain'>
+                    <label>Test</label>
+                </div>       
             </div>
         </div>
          
