@@ -8,9 +8,12 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 
+
 toast.configure()
 
 let TabZadania;
+let list;
+let listItems;
 
 
 
@@ -33,6 +36,13 @@ function Informacje() {
     const [zadania, setZadania] = useState("");
     const [task, setTask] = useState("");
 
+    const [test, setTest] = useState([
+        /*{ numer: 1, zadania: 'zadanie pierwsze'},
+        {numer: 2, zadania: 'zadanie drugie'}*/
+    ])
+
+    
+
     const [loginStatus, setLoginStatus] = useState("");
     Axios.defaults.withCredentials = true; 
 
@@ -54,14 +64,31 @@ function Informacje() {
                 var x =0
                 TabZadania = []
                 while (x < response.data.length) {
-                    TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " "; 
-                    setTask(<div>{TabZadania}</div>);
+                    TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " \n"; 
+                    ;
+                    setTask(<p>{TabZadania}</p>)
+                    /*setTest([
+                        { numer: response.data[x].numer, zadania: response.data[x].zadania}
+                    ])*/
+                    test.push(
+                        { numer: response.data[x].numer, zadania: response.data[x].zadania}
+                    )
                     console.log(TabZadania[x]);
                     x++; // increment
+                    
                 }
+                
+                list = response.data;
+                console.log(list)
+                console.log(listItems)
+ 
+  
+
             }
         })
     }
+
+    
 
     useEffect(() => {
         Axios.get("http://localhost:3001/todo").then((response) => {
@@ -146,7 +173,16 @@ function Informacje() {
                 <div className='rightmain'>
                     <button onClick={DisplayTasks}>Wyświetl</button>
                     <div className='taskView'> 
-                        <div>{task}</div>
+                        <div>
+                            
+                        </div>
+                        <ol className="taski">
+                            {test.map((testarg) => (
+                                <li className="task-test">
+                                    <p>{testarg.zadania}</p>
+                                </li>
+                            ))}
+                        </ol>
                     </div>
                 </div>       
             </div>
