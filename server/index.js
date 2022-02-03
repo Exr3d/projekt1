@@ -48,17 +48,22 @@ app.post("/task", (req, res) => {
     const nick = req.body.nick
     const zadania = req.body.zadania
 
-    db.query("INSERT INTO todo (nick, zadania) VALUES (?, ?)",
-    [nick,zadania],
-    (err, result) => {
-        if(err) {
-            console.error(err)
-            res.send(err)
-        }else{
-            res.send({ message: "Task wysłany pomyślnie!"});
+    if(nick != ""){
+        db.query("INSERT INTO todo (nick, zadania) VALUES (?, ?)",
+        [nick,zadania],
+        (err, result) => {
+            if(err) {
+                console.error(err)
+                res.send(err)
+            }else{
+                res.send({ message: "Task wysłany pomyślnie!"});
+            }
         }
+        )
+    }else{
+        console.log("nie zalogowany");
     }
-    )
+    
 })
 
 
