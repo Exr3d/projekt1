@@ -55,7 +55,7 @@ function Informacje() {
                 TabZadania = []
                 while (x < response.data.length) {
                     TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " "; 
-                    setTask(<div>{TabZadania}</div>);
+                    setTask(<div className='taskView'>{TabZadania}</div>);
                     console.log(TabZadania[x]);
                     x++; // increment
                 }
@@ -144,10 +144,10 @@ function Informacje() {
                     </div>
                 </div>
                 <div className='rightmain'>
-                    <button onClick={DisplayTasks}>Wyświetl</button>
-                    <div className='taskView'> 
-                        <div>{task}</div>
-                    </div>
+                    <div className='buttonDiv'>
+                        <button className='DisplayButton' onClick={DisplayTasks}>Wyświetl</button>
+                    </div>       
+                    {task}
                 </div>       
             </div>
         </div>
