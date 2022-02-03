@@ -37,8 +37,8 @@ function Informacje() {
     const [task, setTask] = useState("");
 
     const [test, setTest] = useState([
-        /*{ numer: 1, zadania: 'zadanie pierwsze'},
-        {numer: 2, zadania: 'zadanie drugie'}*/
+        //{ numer: 0, zadania: 'test'},
+        /*{numer: 2, zadania: 'zadanie drugie'}*/
     ])
 
     
@@ -61,11 +61,11 @@ function Informacje() {
             if(response){
                 //toast.success(response.data.numer)
                 console.log(response.data.length)
-                var x =0
+                var x = 0
                 TabZadania = []
-                while (x < response.data.length) {
-                    TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " \n"; 
-                    ;
+                while (x <= response.data.length) {
+                    //TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " \n"; 
+                    //;
                     setTask(<p>{TabZadania}</p>)
                     /*setTest([
                         { numer: response.data[x].numer, zadania: response.data[x].zadania}
@@ -73,14 +73,12 @@ function Informacje() {
                     test.push(
                         { numer: response.data[x].numer, zadania: response.data[x].zadania}
                     )
-                    console.log(TabZadania[x]);
                     x++; // increment
                     
                 }
                 
                 list = response.data;
                 console.log(list)
-                console.log(listItems)
  
   
 
@@ -176,13 +174,13 @@ function Informacje() {
                         <div>
                             
                         </div>
-                        <ol className="taski">
+                        <ul className="taski">
                             {test.map((testarg) => (
-                                <li className="task-test" key={testarg.numer}>
-                                    <p>{testarg.zadania}</p>
+                                <li className="task-test">
+                                    {testarg.numer+ " " +testarg.zadania}
                                 </li>
                             ))}
-                        </ol>
+                        </ul>
                     </div>
                 </div>       
             </div>
