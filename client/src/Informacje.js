@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css'
 
 toast.configure()
 
+let TabZadania;
+
 
 
 const sidebarMovement = () => {
@@ -29,16 +31,34 @@ function Informacje() {
     document.title = 'Lista'
     const navigate = useNavigate();
     const [zadania, setZadania] = useState("");
+    const [task, setTask] = useState("");
 
     const [loginStatus, setLoginStatus] = useState("");
     Axios.defaults.withCredentials = true; 
 
-    
+
 
     const AddTaskFunction = () => {
         Axios.post('http://localhost:3001/task', {nick: loginStatus, zadania: zadania}).then((response) => {
             if(response) {
                 toast.success(response.data.message)
+            }
+        })
+    }
+
+    const DisplayTasks = () => {
+        Axios.post('http://localhost:3001/getTask', {nick: loginStatus}).then((response) => {
+            if(response){
+                //toast.success(response.data.numer)
+                console.log(response.data.length)
+                var x =0
+                TabZadania = []
+                while (x < response.data.length) {
+                    TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " "; 
+                    setTask(<div>{TabZadania}</div>);
+                    console.log(TabZadania[x]);
+                    x++; // increment
+                }
             }
         })
     }
@@ -124,7 +144,10 @@ function Informacje() {
                     </div>
                 </div>
                 <div className='rightmain'>
-                    
+                    <button onClick={DisplayTasks}>Wyświetl</button>
+                    <div className='taskView'> 
+                        <div>{task}</div>
+                    </div>
                 </div>       
             </div>
         </div>

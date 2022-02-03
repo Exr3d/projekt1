@@ -92,6 +92,25 @@ app.post("/rejestruj", (req, res) => {
     
 })
 
+app.post("/getTask", (req,res) => {
+    const nick = req.body.nick
+
+    db.query(
+        "SELECT numer, zadania FROM todo WHERE nick = ?;", 
+    nick,
+    (err, result) => {
+        if(err){
+            res.send({err: err});
+        }
+        if(result.length > 0){
+            console.log(result)
+            res.send(result);
+        }else{
+            res.send({ message: "Taki użytkownik nie ma zadań!" });
+        }
+    })
+})
+
 app.get("/loguj", (req, res) => {
     if(req.session.user){
         res.send({loggedIn: true, user: req.session.user });
