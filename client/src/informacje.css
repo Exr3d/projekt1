@@ -176,6 +176,7 @@ h1{
     width: 800px;
     margin-left: 5em;
     color: whitesmoke;
+    padding-top: 1.5em;
 }
 
 .buttonDiv{
@@ -207,5 +208,5 @@ h1{
 }
 
 .DisplayButton:hover{
-    border-color: rgb(255, 0, 242);
+    border-color: rgb(0, 0, 0);
 }
