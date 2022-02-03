@@ -210,3 +210,13 @@ h1{
 .DisplayButton:hover{
     border-color: rgb(0, 0, 0);
 }
+
+#delete-task-text{
+    flex: 1 1 0%;
+    padding: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border-radius: 1em;
+    background: #404040;
+    color: whitesmoke;
+}

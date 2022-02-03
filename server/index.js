@@ -66,6 +66,29 @@ app.post("/task", (req, res) => {
     
 })
 
+app.post("/deleteTask", (req, res) => {
+    const nick = req.body.nick
+    const zadania = req.body.zadania
+    const numer = req.body.numer
+
+    if(nick != ""){
+        db.query("DELETE FROM todo WHERE numer = ?;",
+        [numer],
+        (err, result) => {
+            if(err) {
+                console.error(err)
+                res.send(err)
+            }else{
+                res.send({ message: "Task usunięty pomyślnie!"});
+            }
+        }
+        )
+    }else{
+        console.log("nie zalogowany");
+    }
+    
+})
+
 
 app.post("/rejestruj", (req, res) => {
     //console.log('post register working')

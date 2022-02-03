@@ -32,6 +32,7 @@ function Informacje() {
     const navigate = useNavigate();
     const [zadania, setZadania] = useState("");
     const [task, setTask] = useState("");
+    const [numer, deleteTask] = useState("");
 
     const [loginStatus, setLoginStatus] = useState("");
     Axios.defaults.withCredentials = true; 
@@ -59,6 +60,14 @@ function Informacje() {
                     console.log(TabZadania[x]);
                     x++; // increment
                 }
+            }
+        })
+    }
+
+    const DeleteTask = () => {
+        Axios.post('http://localhost:3001/deleteTask', {nick: loginStatus, numer: numer}).then((response) => {
+            if(response) {
+                toast.success(response.data.message)
             }
         })
     }
@@ -146,6 +155,10 @@ function Informacje() {
                 <div className='rightmain'>
                     <div className='buttonDiv'>
                         <button className='DisplayButton' onClick={DisplayTasks}>Wyświetl</button>
+                        <input type="text" id="delete-task-text" placeholder="Write number of Task to Delete!" onChange={(event ) =>{
+                            deleteTask(event.target.value);
+                        }}/>
+                        <button className='DisplayButton' onClick={DeleteTask}>Usuń</button>
                     </div>       
                     {task}
                 </div>       
