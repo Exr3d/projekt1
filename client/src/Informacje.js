@@ -23,6 +23,8 @@ const sidebarMovement = () => {
 
 }
 
+
+
 function Informacje() {
     document.title = 'Lista'
     const navigate = useNavigate();
@@ -30,6 +32,8 @@ function Informacje() {
 
     const [loginStatus, setLoginStatus] = useState("");
     Axios.defaults.withCredentials = true; 
+
+    
 
     const AddTaskFunction = () => {
         Axios.post('http://localhost:3001/task', {nick: loginStatus, zadania: zadania}).then((response) => {
@@ -120,7 +124,7 @@ function Informacje() {
                     </div>
                 </div>
                 <div className='rightmain'>
-                    <label>Test</label>
+                    
                 </div>       
             </div>
         </div>
