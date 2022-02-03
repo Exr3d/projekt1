@@ -9,14 +9,14 @@ import 'react-toastify/dist/ReactToastify.css'
 
 
 function Zarejestruj() {
-  document.title = "Rejestracja klanowicza"
+  document.title = "Rejestracja"
   const navigate = useNavigate();
   const [nick, setNick] = useState("");
   const [haslo, setHaslo] = useState("");
   const [kod, setKod] = useState(0);
 
   const RegisterFunction = () => {
-    Axios.post('http://localhost:3001/rejestruj', {nick: nick, haslo: haslo, kod: kod}).then((response) => {
+    Axios.post('http://localhost:3001/rejestruj', {nick: nick, haslo: haslo}).then((response) => {
       if(response) {
           toast.success(response.data.message)
       }
@@ -92,7 +92,7 @@ function Zarejestruj() {
         <div className='RegisterInfo'>
           <h1 className='RegisterHeader'>Rejestracja</h1>
         
-        <label>Nick: </label>
+        <label>Login: </label>
         <input type="text" onChange={(event) =>{
           setNick(event.target.value);
         }}/>
@@ -102,12 +102,7 @@ function Zarejestruj() {
         <input type="password" onChange={(event) =>{
           setHaslo(event.target.value);
         }}/>
-        
-        
-        <label>Kod: </label>
-        <input type="number" onChange={(event) =>{
-          setKod(event.target.value);
-        }}/>
+
         
         <button onClick={RegisterFunction}>Zarejestruj</button>
         

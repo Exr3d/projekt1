@@ -1,6 +1,6 @@
 import React from 'react'
 //import './App.css'
-import './home.css'
+import './informacje.css'
 import 'boxicons'
 import {useNavigate} from 'react-router-dom'
 

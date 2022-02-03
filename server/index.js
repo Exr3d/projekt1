@@ -37,7 +37,7 @@ const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: '',
-    database: 'mvp'
+    database: 'projekttodo'
 })
 db.connect(function(err) {
     if (err) throw err;
@@ -49,15 +49,14 @@ app.post("/rejestruj", (req, res) => {
     //console.log('post register working')
     const nick = req.body.nick
     const haslo = req.body.haslo
-    const kod = req.body.kod
 
     bcrypt.hash(haslo, saltRounds, (err, hash) =>{
         if(err){
             console.log(err)
         }
 
-        db.query("INSERT INTO players (nick, haslo, kod) VALUES (?, ?, ?)",
-     [nick, hash, kod], 
+        db.query("INSERT INTO players (nick, haslo) VALUES (?, ?)",
+     [nick, hash], 
      (err, result) => {
         if (err) {
             console.error(err)
