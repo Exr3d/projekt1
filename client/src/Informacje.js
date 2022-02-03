@@ -35,20 +35,10 @@ function Informacje() {
     const navigate = useNavigate();
     const [zadania, setZadania] = useState("");
     const [task, setTask] = useState("");
-<<<<<<< HEAD
     const [numer, deleteTask] = useState("");
     const [test, setTest] = useState([
 
     ]);
-=======
-
-    const [test, setTest] = useState([
-        //{ numer: 0, zadania: 'test'},
-        /*{numer: 2, zadania: 'zadanie drugie'}*/
-    ])
-
-    
->>>>>>> bd4e59b5e47e0ada84aad55593eb001c319649ae
 
     const [loginStatus, setLoginStatus] = useState("");
     Axios.defaults.withCredentials = true; 
@@ -71,38 +61,26 @@ function Informacje() {
                 var x = 0
                 TabZadania = []
                 while (x <= response.data.length) {
-<<<<<<< HEAD
                     //TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " "; 
                     setTask({TabZadania});
                     test.push(
                         { numer: response.data[x].numer, zadania: response.data[x].zadania }
                     )
                     console.log(TabZadania[x]);
-=======
-                    //TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " \n"; 
-                    //;
-                    setTask(<p>{TabZadania}</p>)
-                    /*setTest([
-                        { numer: response.data[x].numer, zadania: response.data[x].zadania}
-                    ])*/
-                    test.push(
-                        { numer: response.data[x].numer, zadania: response.data[x].zadania}
-                    )
->>>>>>> bd4e59b5e47e0ada84aad55593eb001c319649ae
                     x++; // increment
                     
                 }
-                
-                list = response.data;
-                console.log(list)
- 
-  
-
             }
         })
     }
 
-    
+    const DeleteTask = () => {
+        Axios.post('http://localhost:3001/deleteTask', {nick: loginStatus, numer: numer}).then((response) => {
+            if(response) {
+                toast.success(response.data.message)
+            }
+        })
+    }
 
     useEffect(() => {
         Axios.get("http://localhost:3001/todo").then((response) => {
@@ -185,7 +163,6 @@ function Informacje() {
                     </div>
                 </div>
                 <div className='rightmain'>
-<<<<<<< HEAD
                     <div className='buttonDiv'>
                         <button className='DisplayButton' onClick={DisplayTasks}>Wyświetl</button>
                         <input type="text" id="delete-task-text" placeholder="Write number of Task!" onChange={(event ) =>{
@@ -200,21 +177,6 @@ function Informacje() {
                             </li>
                         ))}
                     </ul>
-=======
-                    <button onClick={DisplayTasks}>Wyświetl</button>
-                    <div className='taskView'> 
-                        <div>
-                            
-                        </div>
-                        <ul className="taski">
-                            {test.map((testarg) => (
-                                <li className="task-test">
-                                    {testarg.numer+ " " +testarg.zadania}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
->>>>>>> bd4e59b5e47e0ada84aad55593eb001c319649ae
                 </div>       
             </div>
         </div>
