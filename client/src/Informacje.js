@@ -33,6 +33,9 @@ function Informacje() {
     const [zadania, setZadania] = useState("");
     const [task, setTask] = useState("");
     const [numer, deleteTask] = useState("");
+    const [test, setTest] = useState([
+
+    ]);
 
     const [loginStatus, setLoginStatus] = useState("");
     Axios.defaults.withCredentials = true; 
@@ -54,9 +57,12 @@ function Informacje() {
                 console.log(response.data.length)
                 var x =0
                 TabZadania = []
-                while (x < response.data.length) {
-                    TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " "; 
-                    setTask(<div className='taskView'>{TabZadania}</div>);
+                while (x <= response.data.length) {
+                    //TabZadania[x] = "Nr. "+ response.data[x].numer + " Zadanie: " + response.data[x].zadania + " "; 
+                    setTask({TabZadania});
+                    test.push(
+                        { numer: response.data[x].numer, zadania: response.data[x].zadania }
+                    )
                     console.log(TabZadania[x]);
                     x++; // increment
                 }
@@ -155,12 +161,18 @@ function Informacje() {
                 <div className='rightmain'>
                     <div className='buttonDiv'>
                         <button className='DisplayButton' onClick={DisplayTasks}>Wyświetl</button>
-                        <input type="text" id="delete-task-text" placeholder="Write number of Task to Delete!" onChange={(event ) =>{
+                        <input type="text" id="delete-task-text" placeholder="Write number of Task!" onChange={(event ) =>{
                             deleteTask(event.target.value);
                         }}/>
                         <button className='DisplayButton' onClick={DeleteTask}>Usuń</button>
                     </div>       
-                    {task}
+                    <ul className="taski">
+                        {test.map((testarg) => (
+                            <li className="taskView">
+                                {"Nr. " + testarg.numer+ " Zadanie: " +testarg.zadania}
+                            </li>
+                        ))}
+                    </ul>
                 </div>       
             </div>
         </div>
