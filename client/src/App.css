@@ -1,0 +1,11 @@
+body{
+  background-image: url("./pngs/blueBG.jpg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.App {
+  text-align: center;
+
+}
+
