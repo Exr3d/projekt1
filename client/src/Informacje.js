@@ -178,7 +178,7 @@ function Informacje() {
                         </div>
                         <ol className="taski">
                             {test.map((testarg) => (
-                                <li className="task-test">
+                                <li className="task-test" key={testarg.numer}>
                                     <p>{testarg.zadania}</p>
                                 </li>
                             ))}
