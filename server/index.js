@@ -55,7 +55,7 @@ app.post("/rejestruj", (req, res) => {
             console.log(err)
         }
 
-        db.query("INSERT INTO players (nick, haslo) VALUES (?, ?)",
+        db.query("INSERT INTO uzytkownicy (nick, haslo) VALUES (?, ?)",
      [nick, hash], 
      (err, result) => {
         if (err) {
@@ -78,13 +78,21 @@ app.get("/loguj", (req, res) => {
     }
 });
 
+app.get("/todo", (req, res) => {
+    if(req.session.user){
+        res.send({loggedIn: true, user: req.session.user });
+    } else{
+        res.send({loggedIn: false});
+    }
+})
+
 app.post("/loguj", (req, res) => {
     //console.log('post login working')
     const nick = req.body.nick
     const haslo = req.body.haslo
 
     db.query(
-        "SELECT * FROM players WHERE nick = ?;",
+        "SELECT * FROM uzytkownicy WHERE nick = ?;",
         nick,
         (err, result) => {
             if(err){

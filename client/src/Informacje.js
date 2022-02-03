@@ -1,8 +1,16 @@
-import React from 'react'
-//import './App.css'
 import './informacje.css'
+import React, { useState, useEffect } from 'react';
+import Axios from "axios"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import 'boxicons'
 import {useNavigate} from 'react-router-dom'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+
+toast.configure()
+
+
 
 const sidebarMovement = () => {
     let btn = document.querySelector("#btn");
@@ -12,6 +20,8 @@ const sidebarMovement = () => {
         sidebar.classList.toggle("active");
         
     }
+
+    
     
 
 }
@@ -19,11 +29,38 @@ const sidebarMovement = () => {
 function Informacje() {
     document.title = 'Lista'
     const navigate = useNavigate();
-    return (
+
+    const [loginStatus, setLoginStatus] = useState("");
+    Axios.defaults.withCredentials = true; 
+
+    
+
+    useEffect(() => {
+        Axios.get("http://localhost:3001/todo").then((response) => {
+            if (response.data.loggedIn == true) {
+                console.log(response.data.user[0].nick);
+                setLoginStatus(response.data.user[0].nick);
+            }else{
+                console.log("nie zalogowany")
+            }
+            
+        });
+      }, []);
+
+      const addElements = () => {
+        if( loginStatus != ""){
+            toast.info("Mozna robic, nick: " + loginStatus);
+        }else{
+            toast.info("nie mozna robic")
+        }
         
+    }
+    
+    return (
+        <div className="container">
         <div className='sidebar' onClick={sidebarMovement}>
             <div className='logo_content'>
-                <div className='logo'>
+                <div className='logo' >
                     <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
                     <box-icon name='world' color='white' size='lg' pull='left' animation='' border='circle 0px'></box-icon>
                     <div className='logo_name'>ToDo</div>
@@ -65,6 +102,11 @@ function Informacje() {
 
                     </div>
                 </div>
+            </div>
+            
+        </div>
+        <div className='main'>
+                <button onClick = {addElements}>test</button>
             </div>
         </div>
          
